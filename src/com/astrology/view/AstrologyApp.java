@@ -58,6 +58,8 @@ public class AstrologyApp extends javax.swing.JFrame {
         welcomeText = new javax.swing.JLabel();
         sloganText = new javax.swing.JLabel();
         slogan2 = new javax.swing.JLabel();
+        navigateToAboutUs = new javax.swing.JButton();
+        navigateOtOffers = new javax.swing.JButton();
         pnlAstrologerList = new javax.swing.JPanel();
         spTblAstrologer = new javax.swing.JScrollPane();
         tblAstrologer = new javax.swing.JTable();
@@ -78,6 +80,13 @@ public class AstrologyApp extends javax.swing.JFrame {
         astrologerListLabel = new javax.swing.JLabel();
         astroFormTitle = new javax.swing.JLabel();
         pnlAboutUs = new javax.swing.JPanel();
+        aboutUs = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        pnlOffers = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         titleLogin = new javax.swing.JLabel();
         PnlLoadingScreen = new javax.swing.JPanel();
@@ -115,6 +124,7 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         lblLoginError.setForeground(new java.awt.Color(255, 0, 0));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("add image here and delete this label");
 
         javax.swing.GroupLayout PnlLoginScreenLayout = new javax.swing.GroupLayout(PnlLoginScreen);
@@ -122,9 +132,9 @@ public class AstrologyApp extends javax.swing.JFrame {
         PnlLoginScreenLayout.setHorizontalGroup(
             PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginScreenLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap(91, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
                 .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLoginError)
                     .addComponent(passWord)
@@ -168,6 +178,20 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         slogan2.setText("\"DISCOVER WHAT UNIVERSE HAS IN STORE FOR YOU- LOVE,CAREER,HEALTH AND MORE!\"");
 
+        navigateToAboutUs.setText("Know Us more ");
+        navigateToAboutUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navigateToAboutUsActionPerformed(evt);
+            }
+        });
+
+        navigateOtOffers.setText("Our Offers");
+        navigateOtOffers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navigateOtOffersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
         pnlHome.setLayout(pnlHomeLayout);
         pnlHomeLayout.setHorizontalGroup(
@@ -176,6 +200,10 @@ public class AstrologyApp extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(slogan2)
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addComponent(navigateToAboutUs)
+                        .addGap(18, 18, 18)
+                        .addComponent(navigateOtOffers))
                     .addComponent(sloganText)
                     .addComponent(welcomeText))
                 .addContainerGap(758, Short.MAX_VALUE))
@@ -185,11 +213,15 @@ public class AstrologyApp extends javax.swing.JFrame {
             .addGroup(pnlHomeLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(welcomeText)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(sloganText)
-                .addGap(88, 88, 88)
+                .addGap(35, 35, 35)
                 .addComponent(slogan2)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addGap(66, 66, 66)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(navigateToAboutUs)
+                    .addComponent(navigateOtOffers))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("Home", pnlHome);
@@ -205,8 +237,6 @@ public class AstrologyApp extends javax.swing.JFrame {
         tblAstrologer.setAutoscrolls(false);
         tblAstrologer.setColumnSelectionAllowed(true);
         tblAstrologer.setShowGrid(true);
-        tblAstrologer.setShowHorizontalLines(true);
-        tblAstrologer.setShowVerticalLines(true);
         spTblAstrologer.setViewportView(tblAstrologer);
         tblAstrologer.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -299,12 +329,6 @@ public class AstrologyApp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblErrorMsgAge, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblErrorMsgLLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -316,10 +340,15 @@ public class AstrologyApp extends javax.swing.JFrame {
                             .addComponent(btnAdd)
                             .addComponent(btnUpdate)
                             .addComponent(btnDelete))
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblErrorMsgAge, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorMsgLLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        astrologerListLabel.setText("Astrologer List");
+        astrologerListLabel.setText("Our Astrologers");
 
         astroFormTitle.setText("Astrologer Form");
 
@@ -328,28 +357,26 @@ public class AstrologyApp extends javax.swing.JFrame {
         pnlAstrologerListLayout.setHorizontalGroup(
             pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAstrologerListLayout.createSequentialGroup()
+                .addContainerGap(163, Short.MAX_VALUE)
                 .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAstrologerListLayout.createSequentialGroup()
-                        .addContainerGap(163, Short.MAX_VALUE)
+                    .addGroup(pnlAstrologerListLayout.createSequentialGroup()
+                        .addComponent(astrologerListLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlAstrologerListLayout.createSequentialGroup()
                         .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                                .addComponent(astroFormTitle)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(astroFormTitle)
                             .addGroup(pnlAstrologerListLayout.createSequentialGroup()
                                 .addComponent(spTblAstrologer, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(astrologerListLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(37, 37, 37))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(37, 37, 37))))
         );
         pnlAstrologerListLayout.setVerticalGroup(
             pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAstrologerListLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(astrologerListLabel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spTblAstrologer, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(astroFormTitle)
@@ -360,18 +387,69 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         tabPaneMain.addTab("Astrologer List", pnlAstrologerList);
 
+        aboutUs.setText("Astrology reveals the will of Gods");
+
+        jLabel2.setText("We provide us the best astrologers, where you can solve your not only daily problems but problems with your life.");
+
         javax.swing.GroupLayout pnlAboutUsLayout = new javax.swing.GroupLayout(pnlAboutUs);
         pnlAboutUs.setLayout(pnlAboutUsLayout);
         pnlAboutUsLayout.setHorizontalGroup(
             pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1273, Short.MAX_VALUE)
+            .addGroup(pnlAboutUsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 1245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlAboutUsLayout.setVerticalGroup(
             pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(pnlAboutUsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addContainerGap(361, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("About Us", pnlAboutUs);
+
+        jLabel3.setText("What we offer ?");
+
+        jLabel4.setText("Get your free horiscope");
+
+        jLabel5.setText("Explore yout birth chart");
+
+        jLabel6.setText("Book a Consaltation");
+
+        javax.swing.GroupLayout pnlOffersLayout = new javax.swing.GroupLayout(pnlOffers);
+        pnlOffers.setLayout(pnlOffersLayout);
+        pnlOffersLayout.setHorizontalGroup(
+            pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOffersLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addContainerGap(1121, Short.MAX_VALUE))
+        );
+        pnlOffersLayout.setVerticalGroup(
+            pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOffersLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel3)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel4)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel6)
+                .addContainerGap(244, Short.MAX_VALUE))
+        );
+
+        tabPaneMain.addTab("Offers", pnlOffers);
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -752,6 +830,16 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void navigateToAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToAboutUsActionPerformed
+        // TODO add your handling code here:
+         tabPaneMain.setSelectedIndex(2); 
+    }//GEN-LAST:event_navigateToAboutUsActionPerformed
+
+    private void navigateOtOffersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateOtOffersActionPerformed
+        // TODO add your handling code here:
+         tabPaneMain.setSelectedIndex(3); 
+    }//GEN-LAST:event_navigateOtOffersActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -792,6 +880,7 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private javax.swing.JPanel PnlLoadingScreen;
     private javax.swing.JPanel PnlLoginScreen;
     private javax.swing.JLabel SignInLabel;
+    private javax.swing.JLabel aboutUs;
     private javax.swing.JLabel astroFormTitle;
     private javax.swing.JLabel astrologerListLabel;
     private javax.swing.JButton btnAdd;
@@ -800,6 +889,11 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel forgetPasswordLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblErrorMsgAge;
     private javax.swing.JLabel lblErrorMsgLContant;
@@ -808,12 +902,15 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private javax.swing.JLabel lblErrorMsgName;
     private javax.swing.JLabel lblLoginError;
     private javax.swing.JLabel loadingLabel;
+    private javax.swing.JButton navigateOtOffers;
+    private javax.swing.JButton navigateToAboutUs;
     private javax.swing.JLabel passWord;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPanel pnlAboutUs;
     private javax.swing.JPanel pnlAstrologerList;
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlMainScreen;
+    private javax.swing.JPanel pnlOffers;
     private javax.swing.JLabel slogan2;
     private javax.swing.JLabel sloganText;
     private javax.swing.JScrollPane spTblAstrologer;
