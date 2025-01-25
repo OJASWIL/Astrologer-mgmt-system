@@ -19,4 +19,4 @@ To run this project, you need the following:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/AstrologyApp.git
+git clone [https://github.com/your-username/AstrologyApp.git](https://github.com/OJASWIL/Astrologer-mgmt-system.git)
