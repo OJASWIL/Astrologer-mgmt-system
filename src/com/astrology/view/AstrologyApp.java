@@ -1,6 +1,8 @@
 package com.astrology.view;
 
+import com.astrology.controller.algorithms.BinarySearch;
 import com.astrologer.model.AstrologerModel;
+import com.astrology.controller.algorithms.SelectionSort;
 import com.astrology.util.ValidationUtil;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -11,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+
  * @author Ojaswi
  */
 public class AstrologyApp extends javax.swing.JFrame {
@@ -19,8 +21,10 @@ public class AstrologyApp extends javax.swing.JFrame {
     private List<AstrologerModel> astrologyList;
     private java.awt.CardLayout cardLayout;
     private final ValidationUtil validationUtil;
-    private final Color errorColor = new Color(255, 51, 0);
+    private final Color errorColor = new Color(222,5,0);
+    private final Color errorBackgroundColor = new Color(255,232,232);
     private final Color yellowColor = new Color(239, 192, 32);
+    private final Color blackColor = new Color(0,0,0);
     
     /**
      * Creates new form AstrologyApp
@@ -44,31 +48,32 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         PnlLoginScreen = new javax.swing.JPanel();
         SignInLabel = new javax.swing.JLabel();
-        LoginButton = new javax.swing.JButton();
         userNameField = new javax.swing.JTextField();
         userNameLabel = new javax.swing.JLabel();
+        LoginButton = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
         passWord = new javax.swing.JLabel();
         forgetPasswordLabel = new javax.swing.JLabel();
         lblLoginError = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         pnlMainScreen = new javax.swing.JPanel();
         tabPaneMain = new javax.swing.JTabbedPane();
         pnlHome = new javax.swing.JPanel();
-        welcomeText = new javax.swing.JLabel();
         sloganText = new javax.swing.JLabel();
-        slogan2 = new javax.swing.JLabel();
+        topSlogan = new javax.swing.JLabel();
+        welcomeText = new javax.swing.JLabel();
         navigateToAboutUs = new javax.swing.JButton();
         navigateOtOffers = new javax.swing.JButton();
+        slogan3 = new javax.swing.JLabel();
         pnlAstrologerList = new javax.swing.JPanel();
         spTblAstrologer = new javax.swing.JScrollPane();
         tblAstrologer = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        txtFldLmuId = new javax.swing.JTextField();
+        txtFldId = new javax.swing.JTextField();
         txtFldLName = new javax.swing.JTextField();
         txtFldLContact = new javax.swing.JTextField();
         txtFldLAge = new javax.swing.JTextField();
-        lblErrorMsgLmuId = new javax.swing.JLabel();
+        lblErrorMsgId = new javax.swing.JLabel();
         lblErrorMsgName = new javax.swing.JLabel();
         lblErrorMsgAge = new javax.swing.JLabel();
         lblErrorMsgLContant = new javax.swing.JLabel();
@@ -77,11 +82,17 @@ public class AstrologyApp extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         txtFldLLevel = new javax.swing.JTextField();
+        clearButton = new javax.swing.JButton();
         astrologerListLabel = new javax.swing.JLabel();
         astroFormTitle = new javax.swing.JLabel();
+        searchTextField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        sortById = new javax.swing.JButton();
         pnlAboutUs = new javax.swing.JPanel();
         aboutUs = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        aboutUsDetails = new javax.swing.JTextArea();
         pnlOffers = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -96,9 +107,14 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         PnlLoginScreen.setBackground(new java.awt.Color(0, 51, 102));
         PnlLoginScreen.setForeground(new java.awt.Color(255, 255, 255));
+        PnlLoginScreen.setToolTipText("");
 
+        SignInLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         SignInLabel.setForeground(new java.awt.Color(250, 250, 250));
-        SignInLabel.setText("Sign in to Astrology App");
+        SignInLabel.setText("Sign in to Vedology App");
+
+        userNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userNameLabel.setText("UserName");
 
         LoginButton.setText("Login");
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +122,6 @@ public class AstrologyApp extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
-
-        userNameLabel.setForeground(new java.awt.Color(255, 255, 255));
-        userNameLabel.setText("UserName");
 
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,60 +137,83 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         lblLoginError.setForeground(new java.awt.Color(255, 0, 0));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("add image here and delete this label");
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/astrology/resources/login image.png"))); // NOI18N
 
         javax.swing.GroupLayout PnlLoginScreenLayout = new javax.swing.GroupLayout(PnlLoginScreen);
         PnlLoginScreen.setLayout(PnlLoginScreenLayout);
         PnlLoginScreenLayout.setHorizontalGroup(
             PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoginScreenLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
+            .addGroup(PnlLoginScreenLayout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel7)
                 .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLoginError)
-                    .addComponent(passWord)
-                    .addComponent(SignInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                    .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(LoginButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(forgetPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(119, 119, 119))
+                    .addGroup(PnlLoginScreenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                        .addComponent(lblLoginError)
+                        .addGap(341, 341, 341))
+                    .addGroup(PnlLoginScreenLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(LoginButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(forgetPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(passWord)
+                            .addComponent(SignInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         PnlLoginScreenLayout.setVerticalGroup(
             PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PnlLoginScreenLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(SignInLabel)
-                .addGap(34, 34, 34)
-                .addComponent(userNameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passWord)
-                    .addComponent(jLabel1))
-                .addGap(2, 2, 2)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblLoginError)
-                .addGap(18, 18, 18)
-                .addComponent(forgetPasswordLabel)
-                .addGap(27, 27, 27)
-                .addComponent(LoginButton)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(PnlLoginScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PnlLoginScreenLayout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(SignInLabel)
+                        .addGap(45, 45, 45)
+                        .addComponent(userNameLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(passWord)
+                        .addGap(18, 18, 18)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(forgetPasswordLabel)
+                        .addGap(37, 37, 37)
+                        .addComponent(LoginButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLoginError))
+                    .addGroup(PnlLoginScreenLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(714, Short.MAX_VALUE))
         );
 
-        welcomeText.setText("Welcome");
+        tabPaneMain.setBackground(new java.awt.Color(0, 51, 102));
+        tabPaneMain.setForeground(new java.awt.Color(255, 255, 255));
 
+        pnlHome.setBackground(new java.awt.Color(0, 51, 102));
+        pnlHome.setForeground(new java.awt.Color(255, 255, 255));
+        pnlHome.setToolTipText("");
+
+        sloganText.setBackground(new java.awt.Color(0, 51, 102));
+        sloganText.setForeground(new java.awt.Color(255, 255, 255));
         sloganText.setText("\"Your Journey To The Star's Begins Here\"");
 
-        slogan2.setText("\"DISCOVER WHAT UNIVERSE HAS IN STORE FOR YOU- LOVE,CAREER,HEALTH AND MORE!\"");
+        topSlogan.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        topSlogan.setForeground(new java.awt.Color(255, 255, 255));
+        topSlogan.setText("\"UNLOCK THE SECRETS OF THE UNIVERSE\"");
 
+        welcomeText.setBackground(new java.awt.Color(0, 51, 102));
+        welcomeText.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        welcomeText.setForeground(new java.awt.Color(255, 255, 255));
+        welcomeText.setText("Welcome!");
+
+        navigateToAboutUs.setBackground(new java.awt.Color(0, 51, 102));
+        navigateToAboutUs.setForeground(new java.awt.Color(255, 255, 255));
         navigateToAboutUs.setText("Know Us more ");
         navigateToAboutUs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +221,8 @@ public class AstrologyApp extends javax.swing.JFrame {
             }
         });
 
+        navigateOtOffers.setBackground(new java.awt.Color(0, 51, 102));
+        navigateOtOffers.setForeground(new java.awt.Color(255, 255, 255));
         navigateOtOffers.setText("Our Offers");
         navigateOtOffers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,39 +230,64 @@ public class AstrologyApp extends javax.swing.JFrame {
             }
         });
 
+        slogan3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        slogan3.setForeground(new java.awt.Color(255, 255, 255));
+        slogan3.setText("\"DISCOVER WHAT UNIVERSE HAS IN STORE FOR YOU- LOVE,CAREER,HEALTH AND MORE!\"");
+
         javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
         pnlHome.setLayout(pnlHomeLayout);
         pnlHomeLayout.setHorizontalGroup(
             pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHomeLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(397, 397, 397)
                 .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(slogan2)
                     .addGroup(pnlHomeLayout.createSequentialGroup()
-                        .addComponent(navigateToAboutUs)
-                        .addGap(18, 18, 18)
-                        .addComponent(navigateOtOffers))
-                    .addComponent(sloganText)
-                    .addComponent(welcomeText))
-                .addContainerGap(758, Short.MAX_VALUE))
+                        .addGap(134, 134, 134)
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addComponent(navigateToAboutUs)
+                                .addGap(189, 189, 189)
+                                .addComponent(navigateOtOffers))
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(topSlogan))
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(sloganText))
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
+                                .addGap(181, 181, 181)
+                                .addComponent(welcomeText))))
+                    .addComponent(slogan3))
+                .addContainerGap(538, Short.MAX_VALUE))
         );
         pnlHomeLayout.setVerticalGroup(
             pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHomeLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(127, 127, 127)
+                .addComponent(topSlogan)
+                .addGap(62, 62, 62)
                 .addComponent(welcomeText)
-                .addGap(26, 26, 26)
-                .addComponent(sloganText)
-                .addGap(35, 35, 35)
-                .addComponent(slogan2)
-                .addGap(66, 66, 66)
-                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(navigateToAboutUs)
-                    .addComponent(navigateOtOffers))
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(sloganText))
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(navigateToAboutUs)
+                            .addComponent(navigateOtOffers))))
+                .addGap(41, 41, 41)
+                .addComponent(slogan3)
+                .addContainerGap(1062, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("Home", pnlHome);
+
+        pnlAstrologerList.setBackground(new java.awt.Color(0, 51, 102));
+        pnlAstrologerList.setForeground(new java.awt.Color(255, 255, 255));
+
+        spTblAstrologer.setBackground(new java.awt.Color(0, 51, 102));
+        spTblAstrologer.setForeground(new java.awt.Color(255, 255, 255));
 
         tblAstrologer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,10 +303,13 @@ public class AstrologyApp extends javax.swing.JFrame {
         spTblAstrologer.setViewportView(tblAstrologer);
         tblAstrologer.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        txtFldLmuId.setText("id");
-        txtFldLmuId.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtFldId.setText("id");
+        txtFldId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFldLmuIdActionPerformed(evt);
+                txtFldIdActionPerformed(evt);
             }
         });
 
@@ -281,6 +347,13 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         txtFldLLevel.setText("Level");
 
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -293,11 +366,13 @@ public class AstrologyApp extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete))
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(clearButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFldLmuId, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblErrorMsgLmuId))
+                            .addComponent(txtFldId, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorMsgId))
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtFldLName, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
@@ -314,14 +389,14 @@ public class AstrologyApp extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtFldLLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblErrorMsgLLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFldLmuId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFldLAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFldLContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFldLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,14 +407,15 @@ public class AstrologyApp extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(lblErrorMsgLmuId))
+                                .addComponent(lblErrorMsgId))
                             .addComponent(lblErrorMsgName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblErrorMsgLContant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd)
                             .addComponent(btnUpdate)
-                            .addComponent(btnDelete))
+                            .addComponent(btnDelete)
+                            .addComponent(clearButton))
                         .addGap(45, 45, 45))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,34 +424,69 @@ public class AstrologyApp extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        astrologerListLabel.setBackground(new java.awt.Color(0, 51, 102));
+        astrologerListLabel.setForeground(new java.awt.Color(255, 255, 255));
         astrologerListLabel.setText("Our Astrologers");
 
+        astroFormTitle.setBackground(new java.awt.Color(0, 51, 102));
+        astroFormTitle.setForeground(new java.awt.Color(255, 255, 255));
         astroFormTitle.setText("Astrologer Form");
+
+        searchTextField.setText("Search for");
+        searchTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTextFieldActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search ");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        sortById.setText("Sort by id");
+        sortById.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortByIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlAstrologerListLayout = new javax.swing.GroupLayout(pnlAstrologerList);
         pnlAstrologerList.setLayout(pnlAstrologerListLayout);
         pnlAstrologerListLayout.setHorizontalGroup(
             pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(308, Short.MAX_VALUE)
                 .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                        .addComponent(astrologerListLabel)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                        .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(astroFormTitle)
+                        .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlAstrologerListLayout.createSequentialGroup()
-                                .addComponent(spTblAstrologer, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(37, 37, 37))))
+                                .addComponent(astrologerListLabel)
+                                .addGap(296, 296, 296)
+                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addComponent(sortById, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(astroFormTitle)
+                                .addComponent(spTblAstrologer, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(37, 37, 37))
         );
         pnlAstrologerListLayout.setVerticalGroup(
             pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAstrologerListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(astrologerListLabel)
+                .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(astrologerListLabel)
+                    .addGroup(pnlAstrologerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchButton)
+                        .addComponent(sortById)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spTblAstrologer, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -387,39 +498,80 @@ public class AstrologyApp extends javax.swing.JFrame {
 
         tabPaneMain.addTab("Astrologer List", pnlAstrologerList);
 
+        pnlAboutUs.setBackground(new java.awt.Color(0, 51, 102));
+        pnlAboutUs.setForeground(new java.awt.Color(255, 255, 255));
+
+        aboutUs.setBackground(new java.awt.Color(0, 51, 102));
+        aboutUs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        aboutUs.setForeground(new java.awt.Color(255, 255, 255));
         aboutUs.setText("Astrology reveals the will of Gods");
 
-        jLabel2.setText("We provide us the best astrologers, where you can solve your not only daily problems but problems with your life.");
+        jLabel8.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+
+        aboutUsDetails.setBackground(new java.awt.Color(0, 51, 102));
+        aboutUsDetails.setColumns(20);
+        aboutUsDetails.setForeground(new java.awt.Color(255, 255, 255));
+        aboutUsDetails.setRows(5);
+        aboutUsDetails.setText("Astrology is a predictive science with its own sets of methods, claims and findings that have forever inspired and allowed people with insights into different aspects of their life. \nAstrology, with its wows and hows, is contentful and approving enough to make people a believer of the same. And thankfully, it continues to do so despite the world shifting\n bases from what they believe in and what they don’t.\n\nIf one has to go into the technicalities of astrology, it is the study of different cosmic objects, which are usually stars and planets, that have an effect on the lives of the people. \nYou must be aware that there are as many as 8 planets in the solar system. However, If I ask an online astrologer near me about the planets in astrology, they will tell me that there \nare as many as 9 planets in astrology also called Navagrahas. And surprisingly, the planet Earth, in astrology, is not counted among the nine planets.\n\nThe 9 planets in astrology are Sun (Surya), Moon (Chandra), Mars (Mangala), Mercury (Budha), Jupiter (Brihaspati), Venus (Shukra), Saturn (Shani), Rahu (north node of the moon),\n and Ketu (south node of the moon).\n\nAmong these planets, some planets are called friendly planets, meaning the presence of them brings positivity to your life. And then, there are also planets that have a negative\n influence on humans. The latter would be planets like Rahu and Ketu. Their presence in one’s Kundli is said to bring pain and misery. However, there is another aspect one needs\n to be aware of. It’s the fact that the presence of Ketu in one’s horoscope is not always bad and similarly, the presence of Jupiter in one’s Kundli might not be the best every time.\n\nIt all depends on which houses these planets are sitting in. If you ever had the opportunity to talk to an astrologer online, then s/he must have told you about houses in astrology \nand the movements of planets in the same. There are as many as 12 houses in Kundli. And all of these houses represent one thing or the other. You can check your free kundali online.\n\nFor example, the first house, which any online astrology consultation would tell you is also the ascendant of the person, is the house of self. It represents a person’s personality and\n physical traits. Similarly, the fifth house in the Vedic horoscope, also known as Putra Bhava is the house of creativity, playfulness, joy, pleasure, and romance. If, for example, a good\n planet, like Jupiter, is camping in the fifth house, your love life will excel. Likewise, if Rahu is camping in the same house, then you might feel the need for online astrology\n consultation to deal with the woes.");
+        jScrollPane1.setViewportView(aboutUsDetails);
 
         javax.swing.GroupLayout pnlAboutUsLayout = new javax.swing.GroupLayout(pnlAboutUs);
         pnlAboutUs.setLayout(pnlAboutUsLayout);
         pnlAboutUsLayout.setHorizontalGroup(
             pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAboutUsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(656, 656, 656))
             .addGroup(pnlAboutUsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 1245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(261, 261, 261)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1011, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(293, Short.MAX_VALUE))
+            .addGroup(pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAboutUsLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(868, Short.MAX_VALUE)))
         );
         pnlAboutUsLayout.setVerticalGroup(
             pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAboutUsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(66, 66, 66)
                 .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(926, Short.MAX_VALUE))
+            .addGroup(pnlAboutUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAboutUsLayout.createSequentialGroup()
+                    .addGap(82, 82, 82)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(1330, Short.MAX_VALUE)))
         );
 
         tabPaneMain.addTab("About Us", pnlAboutUs);
 
+        pnlOffers.setBackground(new java.awt.Color(0, 51, 102));
+        pnlOffers.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("What we offer ?");
 
+        jLabel4.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Get your free horiscope");
 
+        jLabel5.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Explore yout birth chart");
 
+        jLabel6.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Book a Consaltation");
 
         javax.swing.GroupLayout pnlOffersLayout = new javax.swing.GroupLayout(pnlOffers);
@@ -427,26 +579,28 @@ public class AstrologyApp extends javax.swing.JFrame {
         pnlOffersLayout.setHorizontalGroup(
             pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOffersLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(612, 612, 612)
                 .addGroup(pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
+                    .addGroup(pnlOffersLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel3))
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addContainerGap(1121, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addContainerGap(761, Short.MAX_VALUE))
         );
         pnlOffersLayout.setVerticalGroup(
             pnlOffersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOffersLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(136, 136, 136)
                 .addComponent(jLabel3)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel4)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel5)
-                .addGap(27, 27, 27)
+                .addGap(65, 65, 65)
                 .addComponent(jLabel6)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addComponent(jLabel4)
+                .addGap(51, 51, 51)
+                .addComponent(jLabel5)
+                .addContainerGap(1048, Short.MAX_VALUE))
         );
 
         tabPaneMain.addTab("Offers", pnlOffers);
@@ -464,15 +618,15 @@ public class AstrologyApp extends javax.swing.JFrame {
         pnlMainScreen.setLayout(pnlMainScreenLayout);
         pnlMainScreenLayout.setHorizontalGroup(
             pnlMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMainScreenLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabPaneMain)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainScreenLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(titleLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlMainScreenLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(tabPaneMain)
+                .addContainerGap())
         );
         pnlMainScreenLayout.setVerticalGroup(
             pnlMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,7 +635,8 @@ public class AstrologyApp extends javax.swing.JFrame {
                     .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titleLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPaneMain))
+                .addComponent(tabPaneMain)
+                .addGap(52, 52, 52))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -505,39 +660,42 @@ public class AstrologyApp extends javax.swing.JFrame {
             .addGroup(PnlLoadingScreenLayout.createSequentialGroup()
                 .addGroup(PnlLoadingScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlLoadingScreenLayout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE))
+                        .addGap(464, 464, 464)
+                        .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PnlLoadingScreenLayout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addComponent(splashScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(PnlLoadingScreenLayout.createSequentialGroup()
-                .addGap(452, 452, 452)
-                .addComponent(loadingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(339, 339, 339)
+                        .addGroup(PnlLoadingScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(splashScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(title))))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         PnlLoadingScreenLayout.setVerticalGroup(
             PnlLoadingScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlLoadingScreenLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
+                .addGap(216, 216, 216)
                 .addComponent(title)
-                .addGap(87, 87, 87)
+                .addGap(37, 37, 37)
                 .addComponent(splashScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(40, 40, 40)
                 .addComponent(loadingLabel)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlLoadingScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PnlLoadingScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlLoadingScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PnlLoadingScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -615,19 +773,19 @@ public class AstrologyApp extends javax.swing.JFrame {
     }
        private boolean checkDuplicateAstrologer(AstrologerModel astro) {
         return astrologyList.stream()
-                .anyMatch(existingStudent
-                        -> existingStudent.getLmuId() == astro.getLmuId());
+                .anyMatch(existingAstrologer
+                        -> existingAstrologer.getId() == astro.getId());
     }
        
          private void showDialogBox(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(this, message, title, messageType);
     }
          
-           private void registerStudent(AstrologerModel astro) {
+           private void registerAstrologer(AstrologerModel astro) {
         astrologyList.add(astro);
         DefaultTableModel model = (DefaultTableModel) tblAstrologer.getModel();
         model.addRow(new Object[]{
-            astro.getLmuId(), astro.getName(), astro.getPosition(),
+            astro.getId(), astro.getName(), astro.getPosition(),
             astro.getContact(), astro.getAge()
         });
     }
@@ -635,41 +793,34 @@ public class AstrologyApp extends javax.swing.JFrame {
         private void initializeData() {
         astrologyList = new LinkedList<>();
 
-        // Registering sample students
-        registerStudent(new AstrologerModel(1212121, "Ojaswi Lamichhane", "Expert", "9812544702", (short) 19));
-        registerStudent(new AstrologerModel(7894562, "Ojaswi Sharma", "beginner", "9818928272", (short) 12));
-        registerStudent(new AstrologerModel(7892686, "Prabuddha ", "beginner", "9823386476", (short) 24));
-        registerStudent(new AstrologerModel(7851565, "op", "expert", "9818928272", (short) 40));
+        // Registering sample astrologers
+        registerAstrologer(new AstrologerModel(1212121, "Shanta Sharma", "Expert", "9812544702", (short) 19));
+        registerAstrologer(new AstrologerModel(7894562, "Ojaswi Lamichhane", "beginner", "9818928272", (short) 12));
+        registerAstrologer(new AstrologerModel(7892686, "Prabuddha Lamichhane", "beginner", "9823386476", (short) 24));
+        registerAstrologer(new AstrologerModel(7851565, "Basant Sharma", "expert", "9818928272", (short) 40));
+        registerAstrologer(new AstrologerModel(1524578, "Anukriti Sharma", "expert", "9814254786", (short) 18));
     }
 
-         private void clearAstrologerForm() {
-        txtFldLmuId.setText("");
-        txtFldLName.setText("");
-        txtFldLLevel.setText("");
-        txtFldLContact.setText("");
-        txtFldLAge.setText("");
-    }
-         
           private void loadListToTable(List<AstrologerModel> astrologerList) {
         DefaultTableModel model = (DefaultTableModel) tblAstrologer.getModel();
 
         // Clear existing rows if needed
         model.setRowCount(0);
 
-        // Populate the table with student data
-        astrologerList.forEach(student -> model.addRow(new Object[]{
-            student.getLmuId(),
-            student.getName(),
-            student.getPosition(),
-            student.getContact(),
-            student.getAge()
+        // Populate the table with astrologer data
+        astrologerList.forEach(astrologer -> model.addRow(new Object[]{
+            astrologer.getId(),
+            astrologer.getName(),
+            astrologer.getPosition(),
+            astrologer.getContact(),
+            astrologer.getAge()
         }));
     }
           
 private void updateAstrologer(AstrologerModel updatedAstro) {
     boolean found = false;
     for (AstrologerModel astro : astrologyList) {
-        if (astro.getLmuId() == updatedAstro.getLmuId()) {
+        if (astro.getId() == updatedAstro.getId()) {
             astro.setName(updatedAstro.getName());
             astro.setPosiotion(updatedAstro.getPosition());
             astro.setContact(updatedAstro.getContact());
@@ -680,7 +831,7 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     }
 
     if (found) {
-        clearAstrologerForm(); // Clear form fields
+        clearValidators(); // Clear form fields
         loadListToTable(astrologyList);
         showDialogBox("Astrologer updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
     } else {
@@ -688,27 +839,65 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     }
 }
 
- private void deleteAstrologer(int lmuId) {
-    boolean removed = astrologyList.removeIf(astro -> astro.getLmuId() == lmuId);
+private void clearValidators() {
+    // Clear error messages
+    lblErrorMsgId.setText("");
+    lblErrorMsgName.setText("");
+    lblErrorMsgLLevel.setText("");
+    lblErrorMsgLContant.setText("");
+    lblErrorMsgAge.setText("");
+    
+    txtFldId.setText("");
+    txtFldLAge.setText("");
+    txtFldLLevel.setText("");
+    txtFldLContact.setText("");
+    txtFldLName.setText("");
+
+    // Hide error labels
+    lblErrorMsgId.setVisible(false);
+    lblErrorMsgName.setVisible(false);
+    lblErrorMsgLLevel.setVisible(false);
+    lblErrorMsgLContant.setVisible(false);
+    lblErrorMsgAge.setVisible(false);
+
+    // Reset borders to default yellow
+    txtFldId.setBorder(createTitledBorder(blackColor, "id"));
+    txtFldLName.setBorder(createTitledBorder(blackColor, "Full Name"));
+    txtFldLLevel.setBorder(createTitledBorder(blackColor, "Program"));
+    txtFldLContact.setBorder(createTitledBorder(blackColor, "Contact"));
+    txtFldLAge.setBorder(createTitledBorder(blackColor, "Age"));
+
+    // Reset background colors
+    applyErrorStyle(null, null, lblErrorMsgId, lblErrorMsgName, lblErrorMsgLLevel, lblErrorMsgLContant, lblErrorMsgAge);
+}
+
+ private void deleteAstrologer(int id) {
+    boolean removed = astrologyList.removeIf(astro -> astro.getId() == id);
 
     if (removed) {
-        clearAstrologerForm(); // Clear form fields
+        clearValidators();
         loadListToTable(astrologyList);
         showDialogBox("Astrologer deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
     } else {
         showDialogBox("No astrologer found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-
-          
+ 
+private void applyErrorStyle(Color foreground, Color background, JLabel... labels) {
+    for (JLabel label : labels) {
+        label.setOpaque(true);                  // Needed to show background color
+        label.setForeground(foreground);        // Set text color
+        label.setBackground(background);        // Set background color
+    }
+}
+     
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
          boolean isValid = true;
 
         // Validate ID
         isValid &= validateField(
-                txtFldLmuId, "Id", lblErrorMsgLmuId, "Must be a 7-digit number.",
-                errorColor, yellowColor, ValidationUtil.isValidLmuId(txtFldLmuId.getText())
+                txtFldId, "Id", lblErrorMsgId, "Must be a 7-digit number.",
+                errorColor, yellowColor, ValidationUtil.isValidId(txtFldId.getText())
         );
 
         // Validate Full Name
@@ -740,27 +929,31 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
             validateField(txtFldLAge, "Age", lblErrorMsgAge, "Must be a valid number.", errorColor, yellowColor, false);
             isValid = false;
         }
+        
+        if (!isValid) {
+    applyErrorStyle(errorColor, errorBackgroundColor, lblErrorMsgId , lblErrorMsgName, lblErrorMsgLLevel, lblErrorMsgLContant, lblErrorMsgAge);
+}
 
         if (isValid) {
-            // Create a StudentModel instance
-            AstrologerModel newStudent = new AstrologerModel(
-                    Integer.parseInt(txtFldLmuId.getText().trim()),
+            // Create a AstroModel instance
+            AstrologerModel newAstrologer = new AstrologerModel(
+                    Integer.parseInt(txtFldId.getText().trim()),
                     txtFldLName.getText().trim(),
                     txtFldLLevel.getText().trim(),
                     txtFldLContact.getText().trim(),
                     Short.parseShort(txtFldLAge.getText().trim())
             );
 
-            // Check for duplicate LMU ID
-            if (checkDuplicateAstrologer(newStudent)) {
-                txtFldLmuId.setBorder(createTitledBorder(errorColor, "ID"));
+            // Check for duplicate ID
+            if (checkDuplicateAstrologer(newAstrologer)) {
+                txtFldId.setBorder(createTitledBorder(errorColor, "ID"));
                 showDialogBox("ID already exists.", "Duplicate Entry", JOptionPane.WARNING_MESSAGE);
             } else {
-                // Add the student if no duplicate is found
-                astrologyList.add(newStudent);
-                clearAstrologerForm();
+                // Add the astrologer if no duplicate is found
+                astrologyList.add(newAstrologer);
+                clearValidators();
                 loadListToTable(astrologyList);
-                txtFldLmuId.setBorder(createTitledBorder(yellowColor, "LMU ID"));
+                txtFldId.setBorder(createTitledBorder(yellowColor, "ID"));
                 showDialogBox("Astrologer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -773,9 +966,9 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
         loadScreen("LoginScreen"); 
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void txtFldLmuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldLmuIdActionPerformed
+    private void txtFldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFldLmuIdActionPerformed
+    }//GEN-LAST:event_txtFldIdActionPerformed
 
     private void txtFldLContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldLContactActionPerformed
         // TODO add your handling code here:
@@ -794,7 +987,7 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
         if (username.isEmpty() || password.isEmpty()) {
             lblLoginError.setText("Please enter your username and password.");
         } // Check if username and password are incorrect
-        else if (!username.equals("a") || !password.equals("a")) {
+        else if (!username.equals("ojaswi") || !password.equals("ojaswi")) {
             lblLoginError.setText("Username and password mismatch.");
         } // If credentials are correct, proceed to load the main screen
         else {
@@ -806,13 +999,13 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
          try {
-        int lmuId = Integer.parseInt(txtFldLmuId.getText().trim());
+        int id = Integer.parseInt(txtFldId.getText().trim());
         String name = txtFldLName.getText().trim();
         String position = txtFldLLevel.getText().trim();
         String contact = txtFldLContact.getText().trim();
         short age = Short.parseShort(txtFldLAge.getText().trim());
 
-        AstrologerModel updatedAstro = new AstrologerModel(lmuId, name, position, contact, age);
+        AstrologerModel updatedAstro = new AstrologerModel(id, name, position, contact, age);
         updateAstrologer(updatedAstro);
     } catch (NumberFormatException e) {
         showDialogBox("Invalid input. Please check your fields.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -820,13 +1013,13 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        
            try {
-        int lmuId = Integer.parseInt(txtFldLmuId.getText().trim());
+        int id = Integer.parseInt(txtFldId.getText().trim());
 
-        deleteAstrologer(lmuId);
+        deleteAstrologer(id);
     } catch (NumberFormatException e) {
-        showDialogBox("Please enter a valid LMU ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        showDialogBox("Please enter a valid ID.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -839,6 +1032,36 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
         // TODO add your handling code here:
          tabPaneMain.setSelectedIndex(3); 
     }//GEN-LAST:event_navigateOtOffersActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        // TODO add your handling code here:
+        clearValidators();
+    }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextFieldActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        SelectionSort selectionSort = new SelectionSort();
+        List<AstrologerModel> sortedList = selectionSort.sortByName(astrologyList, true);
+             System.out.println(sortedList);
+        BinarySearch search = new BinarySearch();
+        AstrologerModel searchedData = search.searchByName(searchTextField.getText().trim(), sortedList, 0, sortedList.size()-1);
+                    System.out.println(searchedData);
+
+        if(searchedData!=null){
+            System.out.println("The name you entered is found. You entered" + searchedData.getName());
+        }else{
+            System.out.println("Sorry");
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void sortByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByIdActionPerformed
+                SelectionSort selectionSort = new SelectionSort();
+        loadListToTable(selectionSort.sortById(astrologyList, false));
+    }//GEN-LAST:event_sortByIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -881,24 +1104,27 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private javax.swing.JPanel PnlLoginScreen;
     private javax.swing.JLabel SignInLabel;
     private javax.swing.JLabel aboutUs;
+    private javax.swing.JTextArea aboutUsDetails;
     private javax.swing.JLabel astroFormTitle;
     private javax.swing.JLabel astrologerListLabel;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton clearButton;
     private javax.swing.JLabel forgetPasswordLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErrorMsgAge;
+    private javax.swing.JLabel lblErrorMsgId;
     private javax.swing.JLabel lblErrorMsgLContant;
     private javax.swing.JLabel lblErrorMsgLLevel;
-    private javax.swing.JLabel lblErrorMsgLmuId;
     private javax.swing.JLabel lblErrorMsgName;
     private javax.swing.JLabel lblLoginError;
     private javax.swing.JLabel loadingLabel;
@@ -911,19 +1137,23 @@ private void updateAstrologer(AstrologerModel updatedAstro) {
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlMainScreen;
     private javax.swing.JPanel pnlOffers;
-    private javax.swing.JLabel slogan2;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchTextField;
+    private javax.swing.JLabel slogan3;
     private javax.swing.JLabel sloganText;
+    private javax.swing.JButton sortById;
     private javax.swing.JScrollPane spTblAstrologer;
     private javax.swing.JProgressBar splashScreen;
     private javax.swing.JTabbedPane tabPaneMain;
     private javax.swing.JTable tblAstrologer;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleLogin;
+    private javax.swing.JLabel topSlogan;
+    private javax.swing.JTextField txtFldId;
     private javax.swing.JTextField txtFldLAge;
     private javax.swing.JTextField txtFldLContact;
     private javax.swing.JTextField txtFldLLevel;
     private javax.swing.JTextField txtFldLName;
-    private javax.swing.JTextField txtFldLmuId;
     private javax.swing.JTextField userNameField;
     private javax.swing.JLabel userNameLabel;
     private javax.swing.JLabel welcomeText;

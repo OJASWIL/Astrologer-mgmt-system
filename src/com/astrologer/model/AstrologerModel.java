@@ -5,7 +5,7 @@ package com.astrologer.model;
  * @author Ojaswi
  */
 public class AstrologerModel {
-     private int lmuId;
+     private int id;
     private String name;
     private String position;
     private String contact;
@@ -14,20 +14,20 @@ public class AstrologerModel {
      public AstrologerModel() {
     }
 
-    public AstrologerModel(int lmuId, String name, String description, String contact, short age) {
-        this.lmuId = lmuId;
+    public AstrologerModel(int id, String name, String description, String contact, short age) {
+        this.id = id;
         this.name = name;
         this.position = description;
         this.contact = contact;
         this.age = age;
     }
     
-    public int getLmuId() {
-        return lmuId;
+    public int getId() {
+        return id;
     }
 
-    public void setLmuId(int lmuId) {
-        this.lmuId = lmuId;
+    public void setLmuId(int id) {
+        this.id = id;
     }
 
     public String getName() {

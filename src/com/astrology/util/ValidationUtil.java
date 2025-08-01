@@ -7,7 +7,7 @@ public class ValidationUtil {
 
     // Regular expression patterns
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]+$");
-    private static final Pattern LMU_ID_PATTERN = Pattern.compile("^\\d{7}$");
+    private static final Pattern ID_PATTERN = Pattern.compile("^\\d{7}$");
     private static final Pattern LEVEL_PATTERN = Pattern.compile("^(beginner|intermediate|expert)$");
     private static final Pattern CONTACT_PATTERN = Pattern.compile("^98\\d{8}$");
 
@@ -34,11 +34,11 @@ public class ValidationUtil {
     /**
      * Validates if the LMU ID is exactly 7 digits.
      *
-     * @param lmuId the LMU ID to validate
+     * @param id the ID to validate
      * @return true if valid, otherwise false
      */
-    public static boolean isValidLmuId(String lmuId) {
-        return !isNullOrEmpty(lmuId) && LMU_ID_PATTERN.matcher(lmuId).matches();
+    public static boolean isValidId(String id) {
+        return !isNullOrEmpty(id) && ID_PATTERN.matcher(id).matches();
     }
  /**
      * Validates if the program is one of the allowed options.
