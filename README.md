@@ -4,7 +4,7 @@ A Java Swing application that manages astrologer records with features like regi
 
 ## Features
 - **Login Screen:** User can log in with a hardcoded username and password.
-- **Astrologer Registration:** Add, update, and delete astrologer records (with validation for fields like LMU ID, full name, contact number, and age).
+- **Astrologer Registration:** Add, update, and delete astrologer records (with validation for fields like Astro ID, full name, contact number, and age).
 - **Astrologer List:** View registered astrologers in a table format.
 - **About Us Section:** Navigate to an "About Us" section from the main screen.
 - **Progress Bar:** A loading screen with a progress bar for a smooth user experience.
