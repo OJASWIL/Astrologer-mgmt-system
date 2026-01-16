@@ -7,6 +7,7 @@ package com.astrology.controller.algorithms;
 import com.astrologer.model.AstrologerModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 /**
  *
@@ -41,31 +42,29 @@ public class SelectionSort {
         return dataToSort;
     }
     
-     public List<AstrologerModel> sortByName(List<AstrologerModel> unsortedData, boolean isDesc) {
-        
-        List<AstrologerModel> dataToSort = new ArrayList(); 
-        dataToSort.addAll(unsortedData);
-        
-        for (int i = 0; i < dataToSort.size() - 1; i++) {
-            //min value
-            int minIndex = i;
-            for (int j = i + 1; j < dataToSort.size(); j++) {
-                // compare and assign
-                if (isDesc) {
-                    if (dataToSort.get(j).getName().compareToIgnoreCase(dataToSort.get(minIndex).getName())>0 ) {
-                        minIndex = j;
-                    }
-                } else {
-                    if (dataToSort.get(j).getName().compareToIgnoreCase(dataToSort.get(minIndex).getName())<0) {
-                        minIndex = j;
-                    }
+ public List<AstrologerModel> sortByName(List<AstrologerModel> list, boolean ascending) {
+    // Create a copy if you don't want to modify original
+    List<AstrologerModel> sorted = new ArrayList<>(list);
+    
+    for (int i = 0; i < sorted.size() - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < sorted.size(); j++) {
+            String nameA = sorted.get(minIdx).getName().toLowerCase();
+            String nameB = sorted.get(j).getName().toLowerCase();
+            
+            if (ascending) {
+                if (nameA.compareTo(nameB) > 0) {
+                    minIdx = j;
+                }
+            } else {
+                if (nameA.compareTo(nameB) < 0) {
+                    minIdx = j;
                 }
             }
-            //swap
-            AstrologerModel tempStudent = dataToSort.get(minIndex);
-            dataToSort.set(minIndex, dataToSort.get(i));
-            dataToSort.set(i, tempStudent);
         }
-        return dataToSort;
+        // Swap
+        Collections.swap(sorted, i, minIdx);
     }
+    return sorted;
+}
 }

@@ -1043,19 +1043,48 @@ private void applyErrorStyle(Color foreground, Color background, JLabel... label
     }//GEN-LAST:event_searchTextFieldActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-        SelectionSort selectionSort = new SelectionSort();
-        List<AstrologerModel> sortedList = selectionSort.sortByName(astrologyList, true);
-             System.out.println(sortedList);
-        BinarySearch search = new BinarySearch();
-        AstrologerModel searchedData = search.searchByName(searchTextField.getText().trim(), sortedList, 0, sortedList.size()-1);
-                    System.out.println(searchedData);
+       String searchName = searchTextField.getText().trim();
+    
+    if (searchName.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter a name to search", "Empty Search", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        if(searchedData!=null){
-            System.out.println("The name you entered is found. You entered" + searchedData.getName());
-        }else{
-            System.out.println("Sorry");
+    System.out.println("Searching for: [" + searchName + "]  (length: " + searchName.length() + ")");
+
+    SelectionSort sorter = new SelectionSort();
+    List<AstrologerModel> sortedList = sorter.sortByName(new LinkedList<>(astrologyList), true);
+
+    // Debug: print sorted names to check if sorting worked
+    System.out.println("Sorted list of names:");
+    for (AstrologerModel a : sortedList) {
+        System.out.println("  - " + a.getName());
+    }
+
+    BinarySearch binarySearch = new BinarySearch();
+    AstrologerModel result = binarySearch.searchByName(searchName, sortedList, 0, sortedList.size() - 1);
+
+    if (result != null) {
+        System.out.println("FOUND: " + result.getName() + " (ID: " + result.getId() + ")");
+        int foundIndex = astrologyList.indexOf(result);
+        System.out.println("Index in original list: " + foundIndex);
+        
+        if (foundIndex >= 0) {
+            tblAstrologer.setRowSelectionInterval(foundIndex, foundIndex);
+            tblAstrologer.scrollRectToVisible(tblAstrologer.getCellRect(foundIndex, 0, true));
+            JOptionPane.showMessageDialog(this,
+                "Found: " + result.getName() + " (ID: " + result.getId() + ")",
+                "Search Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Found in sorted list but not in original?!", "Strange Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        System.out.println("NOT FOUND for: " + searchName);
+        JOptionPane.showMessageDialog(this,
+            "No astrologer found with name: " + searchName,
+            "Not Found", JOptionPane.INFORMATION_MESSAGE);
+        tblAstrologer.clearSelection();
+    }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void sortByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByIdActionPerformed
